@@ -1,0 +1,54 @@
+---
+- name: Setup dns master
+  hosts: nsmaster12
+  remote_user: ansible
+  become: yes
+  tasks:
+  - name: Add two IPv4 DNS server addresses
+    nmcli:
+      conn_name: enp0s3
+      type: ethernet
+      dns4:
+      - 192.168.34.13
+      - 8.8.8.8
+      dns4_search:
+      - ziyotek2.local  
+      state: present
+  - name: restart network
+    service:
+      name: network
+      state: restarted
+  
+
+  - name: Install packages
+    yum:
+      name:
+        - bind
+        - bind-utils
+      state: latest
+
+  - name: start named
+    service:
+      name: named
+      state: started
+
+  - name: Configure dns master
+    template:
+      src: dnsmasterconf
+      dest: /etc/named.conf
+
+  - name: copying .flz file
+    template:
+      src: ziyotek2.flz
+      dest: /var/named/ziyotek2.flz
+
+  - name: copying .rlz file
+    template:
+      src: ziyotek2.rlz
+      dest: /var/named/ziyotek2.rlz
+  
+
+  - name: Start named
+    service:
+      name: named
+      state: restarted
