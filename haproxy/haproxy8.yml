@@ -1,6 +1,6 @@
 ---
 - name: install initial packages on all boxes
-  hosts: loadbalance8
+  hosts: loadbalancer8
   remote_user: ansible
   become: true
 
