@@ -1,0 +1,44 @@
+---
+- name: install initial packages on all boxes
+  hosts: loadbalancer8
+  remote_user: ansible
+  become: true
+
+  tasks:
+  - name: install haproxy
+    yum:
+      name: haproxy
+      state: latest
+
+  - name: Send config file from template
+    template:
+      src: haproxy.cfg
+      dest: /etc/haproxy/haproxy.cfg
+      backup: yes
+
+  - name: add the line if it does not exist
+    lineinfile:
+      path: /etc/haproxy/haproxy.cfg
+      regexp: "    server  prdx-webserver126 192.168.34.20:80 check       #web001"
+      line: "    server  prdx-webserver127 192.168.34.21:80 check       #web001"
+
+  - name: add the line if it does not exist
+    lineinfile:
+      path: /etc/haproxy/haproxy.cfg
+      regexp: "    server  prdx-webserver226 192.168.34.22:80 check       #web002"
+      line: "    server  prdx-webserver227 192.168.34.23:80 check       #web002"
+  - name: add the line if it does not exist
+    lineinfile:
+      path: /etc/haproxy/haproxy.cfg
+      regexp: "    server  prdx-webserver326 192.168.34.24:80 check       #web003"
+      line: "    server  prdx-webserver327 192.168.34.25:80 check       #web003"
+
+  - name: run haproxy
+    service:
+      name: haproxy
+      state: started
+
+  - name: enable haproxy
+    service:
+      name: haproxy
+      enabled: yes
