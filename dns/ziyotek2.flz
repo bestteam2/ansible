@@ -1,6 +1,6 @@
 $TTL 1D
 @       IN SOA  prdx-nsmaster12.ziyotek2.local.  root.prdx-nsmaster12.ziyotek2.local. (
-                                        1002    ; serial
+                                        100456    ; serial
                                         3600    ; refresh
                                         1800    ; retry
                                         1W      ; expire

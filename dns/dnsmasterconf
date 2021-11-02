@@ -20,7 +20,7 @@ options {
         secroots-file   "/var/named/data/named.secroots";
         allow-query     { localhost; 192.168.34.0/24; };
         allow-transfer { localhost; 192.168.34.14; 192.168.34.15; };
-
+        forwarders  { 8.8.8.8; };
         /*
          - If you are building an AUTHORITATIVE DNS server, do NOT enable recursion.
          - If you are building a RECURSIVE (caching) DNS server, you need to enable

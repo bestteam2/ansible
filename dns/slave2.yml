@@ -1,12 +1,12 @@
 ---
 - name: Setup dns slave 2
-  hosts: nsworker22
+  hosts: prdx-nsworker22.ziyotek2.local
   remote_user: ansible
   become: yes
   tasks:
   - name: Add two IPv4 DNS server addresses
     nmcli:
-      conn_name: enp0s3
+      conn_name: ens192
       type: ethernet
       dns4:
       - 192.168.34.15
@@ -33,7 +33,7 @@
 
   - name: Configure dns slave2
     template:
-      src:  /home/ansible/project/dnsslave2conf
+      src:  /home/ansible/ansible/dns/dnsslave2conf
       dest: /etc/named.conf
 
   - name: Restart named

@@ -1,0 +1,42 @@
+---
+- name: Setup dns master
+  hosts: localhost
+  connection: local
+  become: yes
+  tasks:
+    - name: Add IPv4 DNS server addresses
+      nmcli:
+        conn_name: ens192        
+        type: ethernet
+        dns4:
+        - 192.168.34.13
+        - 192.168.34.14
+        - 192.168.34.15
+        dns4_search:
+        - ziyotek2.local  
+        state: present
+    - name: restart network
+      service:
+        name: network
+        state: restarted
+    - name: selinux off
+      shell: setenforce 0
+
+    - name: selinux off
+      shell: sed -i --follow-symlinks 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/sysconfig/selinux
+ 
+    - name: firewall off
+      service:
+        name: firewalld
+        state: stopped
+        enabled: false
+
+    - name: Extra packages
+      yum:
+        name: 
+          - bind-utils
+          - man
+          - man-pages
+          - mlocate
+          - sysstat
+        state: present
