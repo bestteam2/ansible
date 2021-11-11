@@ -1,11 +1,11 @@
-$TTL 1D
+$TTL 86400
 @       IN SOA  prdx-nsmaster12.ziyotek2.local.  root.prdx-nsmaster12.ziyotek2.local. (
-                                        100456    ; serial
-                                        3600    ; refresh
-                                        1800    ; retry
-                                        1W      ; expire
-                                        3H )    ; minimum
-
+                                        100458  ; Serial
+                                        3600    ; Refresh 1 hour
+                                        1800    ; Retry
+                                        604800  ; Expire after 1 week
+                                        86400   ; Minimum TTL  1 day
+)
 
 ;Name Server Information
         IN      NS      prdx-nsmaster12.ziyotek2.local.
@@ -63,7 +63,7 @@ web326		IN	CNAME	prdx-webserver326.ziyotek2.local.
 web327		IN	CNAME	prdx-webserver327.ziyotek2.local.
 lb126		IN	CNAME	prdx-haproxy126.ziyotek2.local.
 lb127		IN	CNAME	prdx-haproxy127.ziyotek2.local.
-nagios12	IN	CNAME	prdx-nagios12.ziyotek.local.
+nagios12	IN	CNAME	prdx-nagios12.ziyotek2.local.
 ldap12		IN	CNAME	prdx-ldap12.ziyotek2.local.
 ansible12	IN	CNAME 	prdx-ansible12.ziyotek2.local.
 jenkins12	IN	CNAME	prdx-jenkins12.ziyotek2.local.

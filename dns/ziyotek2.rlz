@@ -1,18 +1,23 @@
-$TTL 1D
+$TTL 86400
 @       IN SOA  ziyotek2.local. root.ziyotek2.local. (
-                                        10066    ; serial
-                                        1D      ; refresh
-                                        1H      ; retry
-                                        1W      ; expire
-                                        3H )    ; minimum
+                                        100671  ; serial
+                                        3600    ; Refresh 1 hour
+                                        1800    ; Retry
+                                        604800  ; Expire after 1 week
+                                        86400   ; Minimum TTL  1 day
+)
 
 ;Name Server Information
 
         IN      NS      prdx-nsmaster12.ziyotek2.local.
         IN      NS      prdx-nsworker12.ziyotek2.local.
         IN      NS      prdx-nsworker22.ziyotek2.local.
+        
 
-
+;A-record HostName to IP Address
+prdx-nsmaster12         IN      A       192.168.34.13 
+prdx-nsworker12         IN     	A       192.168.34.14
+prdx-nsworker22         IN      A       192.168.34.15
 
 ;Name Server PTR records
 
@@ -36,7 +41,7 @@ $TTL 1D
 25      IN      PTR     prdx-webserver327.ziyotek2.local.
 26      IN      PTR     prdx-haproxy126.ziyotek2.local.
 27      IN      PTR     prdx-haproxy127.ziyotek2.local.
-28      IN      PTR     prdx-nagios12.ziyotek.local.
+28      IN      PTR     prdx-nagios12.ziyotek2.local.
 29      IN      PTR     prdx-ldap12.ziyotek2.local.
 30      IN      PTR     prdx-ansible12.ziyotek2.local.
 31      IN      PTR     prdx-jenkins12.ziyotek2.local.
