@@ -1,0 +1,54 @@
+
+---
+### Ansible Playbook to perform Kernel Patching on RHEL/CentOS7 Servers ###
+- hosts: prdx-ntp12.ziyotek2.local
+  become: yes
+  serial: 1
+  tasks: 
+  
+    - name: Verify apps processes are not running
+      shell: if ps -eaf | egrep 'apache|http|nginx|mysql|postgresql|mariadb'|grep -v grep > /dev/null ;then echo 'process_running';else echo 'process_not_running';fi
+      ignore_errors: true
+      register: app_process_check
+    
+    - name:  Decision to start patching
+      fail: msg="{{ inventory_hostname }} have running Application. Please stop the application processes first, then attempt patching."
+      when: app_process_check.stdout == "process_running"
+
+    - name: Upgrade kernel package
+      yum:
+       name="kernel"
+       state=latest
+      when: app_process_check.stdout == "process_not_running"
+      register: yum_update
+       
+    - name: Upgrade OS packages
+      yum:
+         name: '*'
+         state: latest
+     
+    - name: restart system to reboot to newest kernel
+      shell: "sleep 5 && reboot"
+      async: 1
+      poll: 0
+
+    - name: wait for 10 seconds
+      pause:
+        seconds: 10
+        
+    - name: wait for the system to reboot
+      wait_for_connection:
+        connect_timeout: 20
+        sleep: 5
+        delay: 5
+        timeout: 60
+
+    - name: Check if all the systems responding to ssh
+      local_action:
+        module: wait_for
+          host={{ (ansible_ssh_host|default(ansible_host))|default(inventory_hostname) }}
+          port=22
+          search_regex=OpenSSH
+          delay=15
+          timeout=300
+          state=started
