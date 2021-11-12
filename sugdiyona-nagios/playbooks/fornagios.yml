@@ -1,0 +1,6 @@
+---
+- name: Running nagios roles/diana.nagios-server
+  hosts: 192.168.34.28
+  become: yes
+  roles:
+    - roles/diana.nagios-server

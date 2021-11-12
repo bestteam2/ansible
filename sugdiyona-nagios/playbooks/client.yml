@@ -1,0 +1,6 @@
+---
+- name: Add config file to a server
+  become: yes
+  hosts: 192.168.34.28
+  roles:
+    - roles/diana.nagios_add_servers

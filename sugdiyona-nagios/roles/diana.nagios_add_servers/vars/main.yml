@@ -1,0 +1,58 @@
+---
+# vars file for roles/diana.nagios_add_servers
+target_server_list:
+  - server_name: "NTP1"
+    server_ip: "192.168.34.11"
+    
+  - server_name: "NTP2"
+    server_ip: "192.168.34.12"
+
+  - server_name: "DNSMASTER"
+    server_ip: "192.168.34.13"
+
+  - server_name: "DNS-SLAVE1"
+    server_ip: "192.168.34.14"
+
+  - server_name: "DNS-SLAVE2"
+    server_ip: "192.168.34.15"
+
+  - server_name: "FTP"
+    server_ip: "192.168.34.16"
+
+  - server_name: "NFS"
+    server_ip: "192.168.34.17"
+    
+  - server_name: "DATABASE-C7"
+    server_ip: "192.168.34.18"
+
+  - server_name: "DATABASE-C8"
+    server_ip: "192.168.34.19"
+
+  - server_name: "WEBSERVER1-C7"
+    server_ip: "192.168.34.20"
+
+  - server_name: "WEBSERVER1-C8"
+    server_ip: "192.168.34.21"
+
+  - server_name: "WEBSERVER2-C7"
+    server_ip: "192.168.34.22"
+    
+  - server_name: "WEBSERVER2-C8"
+    server_ip: "192.168.34.23"
+
+  - server_name: "WEBSERVER3-C7"
+    server_ip: "192.168.34.24"
+
+  - server_name: "WEBSERVER3-C8"
+    server_ip: "192.168.34.25"
+
+  - server_name: "LB-C7"
+    server_ip: "192.168.34.26"
+
+  - server_name: "LB-C8"
+    server_ip: "192.168.34.27"
+    
+  - server_name: "LDAP"
+    server_ip: "192.168.34.29"
+
+  
