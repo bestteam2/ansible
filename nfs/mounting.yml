@@ -1,0 +1,13 @@
+---
+- hosts: nfs-clients
+  become: yes
+  tasks:
+    - name: Mount
+      mount:
+        path: /teamshare
+        src: /share
+        opts: bind
+        fstype: none
+        state: mounted
+    
+  

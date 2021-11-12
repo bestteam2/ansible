@@ -1,0 +1,27 @@
+---
+- hosts: nfs-clients
+  become: yes
+  tasks:
+    - name: install nfs-utils
+      yum: 
+        name: nfs-utils 
+        state: latest
+      
+
+    - name: Create a mountable directory if it does not exist
+      file:
+        path: "/teamshare"
+        state: directory
+      
+    - name: mount /share in /etc/fstab
+      lineinfile:
+        path: /etc/fstab
+        line:  192.168.37.17:/share /teamshare nfs defaults 0 0
+        state: present
+  
+     
+  
+
+
+
+    

@@ -1,0 +1,43 @@
+---
+- hosts: nfs-server
+  become: yes
+  tasks:
+    - name: install nfs-utils
+      yum: 
+        name: nfs-utils 
+        state: latest
+
+    - name: Create a mountable directory if it does not exist
+      file:
+        path: "/share"
+        state: directory
+        owner: nfsnobody
+        group: nfsnobody
+        mode: 755
+        
+    - name: enable rpcbind nfs-lock nfs-server nfs-idmap
+      service:
+        name: "{{ item }}"
+        enabled: yes
+      with_items:
+        - rpcbind
+        - nfs-lock
+        - nfs-server
+        - nfs-idmap 
+           
+    - name: Edit /etc/exports 
+      lineinfile:
+        path: /etc/exports
+        line: /share *(rw,sync)
+       
+    - name: restart nfs-server
+      service:
+        name: nfs-server
+        state: restarted
+        enabled: yes
+
+########AUTOFS
+    - name: Install autofs
+      yum:
+        name: autofs
+        state: latest        

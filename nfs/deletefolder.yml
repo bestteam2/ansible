@@ -1,0 +1,30 @@
+---
+- hosts: nfs-clients
+  become: yes
+  tasks:
+    - name: Unmount
+      mount:
+        path: /share
+        state: absent
+    - name: Unmount
+      mount:
+        path: /nfs-share
+        state: absent
+    - name: Unmount
+      mount:
+        path: /shared
+        state: absent
+
+    - name: delete directory if it exists
+      file:
+        path: "/share"
+        state: absent
+
+    - name: delete directory if it exists
+      file:
+        path: "/shared"
+        state: absent   
+    - name: delete directory if it exists
+      file:
+        path: "/nfs-share"
+        state: absent 
